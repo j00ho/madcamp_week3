@@ -44,7 +44,7 @@ const E = () => {
     <button onClick={() => setSelectedCategory('All')}>All</button>
     <button onClick={() => setSelectedCategory('C1')}>Category 1</button>
     <button onClick={() => setSelectedCategory('C2')}>Category 2</button>
-    <button onClick={() => setSelectedCategory('C3')}>Category 2</button>
+    <button onClick={() => setSelectedCategory('C3')}>Category 3</button>
     
       <div>
         {filteredVideos.map(video => (
