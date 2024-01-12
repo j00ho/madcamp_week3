@@ -1,35 +1,84 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import { BrowserRouter as Router, Route, NavLink, BrowserRouter, Routes } from 'react-router-dom';
+import React, { Component } from 'react'
+
+import B from './B';
+import C from './C';
+import D from './D';
+import E from './E';
+
+
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <>
+class EventPractice extends Component {
+  state = {
+    message: 'Hell World!'
+  }
+  render() {
+    return(
       <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h1>Event Prac</h1>
+        <input
+          type='text'
+          name='message'
+          placeholder='dsfdsfs'
+          value={this.state.message}
+          onChange={
+            (e) => {
+              this.setState({
+                message: e.target.value
+              })
+            }
+          }
+        />
+        <button onClick={
+          () => {
+            alert(this.state.message);
+            this.setState({message: ''});
+          }
+        }>버튼</button>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    );
+  }
 }
 
-export default App
+
+const Home = () => <div>홈 페이지</div>;
+const About = () => <div>소개 페이지</div>;
+const Services = () => <div>서비스 페이지</div>;
+const Portfolio = () => <div>포트폴리오 페이지</div>;
+const Contact = () => <div>연락처 페이지</div>;
+
+function App() {
+  const style = {
+    backgroundColor: 'black',
+    color: 'aqua',
+    fontSize: '48px',
+    fontWeight: 'bold',
+    padding: 16
+  }
+  return (
+    <Router>
+      <nav>
+	        <NavLink style={style} to="/" exact>홈</NavLink>
+          <NavLink style={style} to="/about">소개</NavLink>
+          <NavLink style={style} to="/services">서비스</NavLink>
+          <NavLink style={style} to="/portfolio">포트폴리오</NavLink>
+          <NavLink style={style} to = "/contact">연락처</NavLink>
+      </nav>
+      <Routes>
+
+        <Route path="/" exact element={Home} />
+        <Route path="/about" element={<B />} />
+        <Route path="/services" element={<C />} />
+        <Route path="/portfolio" element={<D />} />
+        <Route path="/contact" element={<E />} />
+      </Routes>
+    </Router>
+  );
+}
+
+export default App;
