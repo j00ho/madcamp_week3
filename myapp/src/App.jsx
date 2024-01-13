@@ -1,48 +1,41 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import { BrowserRouter as Router, Route, NavLink, BrowserRouter, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, NavLink, Routes } from 'react-router-dom';
 import React, { Component } from 'react'
 
-import B from './B';
-import C from './C';
-import D from './D';
-import E from './E';
+import B from './B.jsx';
+import C from './C.jsx';
+import D from './D.jsx';
+import E from './E.jsx';
+
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+
 
 
 import './App.css'
 
 
-class EventPractice extends Component {
-  state = {
-    message: 'Hell World!'
-  }
-  render() {
-    return(
-      <div>
-        <h1>Event Prac</h1>
-        <input
-          type='text'
-          name='message'
-          placeholder='dsfdsfs'
-          value={this.state.message}
-          onChange={
-            (e) => {
-              this.setState({
-                message: e.target.value
-              })
-            }
-          }
-        />
-        <button onClick={
-          () => {
-            alert(this.state.message);
-            this.setState({message: ''});
-          }
-        }>버튼</button>
-      </div>
-    );
-  }
+function EventPractice() {
+  const [message, setMessage] = useState('Hello World!');
+
+  return (
+    <div>
+      <h1>Event Practice</h1>
+      <input
+        type='text'
+        name='message'
+        placeholder='Enter a message...'
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+      />
+      <button onClick={() => {
+        alert(message);
+        setMessage('');
+      }}>Click Me</button>
+    </div>
+  );
 }
 
 
@@ -61,23 +54,21 @@ function App() {
     padding: 16
   }
   return (
-    <Router>
-      <nav>
-	        <NavLink style={style} to="/" exact>홈</NavLink>
-          <NavLink style={style} to="/about">소개</NavLink>
-          <NavLink style={style} to="/services">서비스</NavLink>
-          <NavLink style={style} to="/portfolio">포트폴리오</NavLink>
-          <NavLink style={style} to = "/contact">연락처</NavLink>
-      </nav>
+    <BrowserRouter>
       <Routes>
 
-        <Route path="/" exact element={Home} />
+        <Route path="/" exact element={<Home />} />
         <Route path="/about" element={<B />} />
         <Route path="/services" element={<C />} />
-        <Route path="/portfolio" element={<D />} />
-        <Route path="/contact" element={<E />} />
+        <Route path="/graph" element={<D />} />
+        <Route path="/youtube" element={<E />} />
+      
+        <Route path="/login" element = {<LoginPage />}  />
+        <Route path="/register" element = {<RegisterPage />}  />
+        
+
       </Routes>
-    </Router>
+    </BrowserRouter>
   );
 }
 
