@@ -6,7 +6,7 @@ import React, { Component } from 'react'
 
 import B from './B';
 import C from './C';
-import D from './D';
+import CalendarPage from './CalendarPage';
 import E from './E';
 
 
@@ -66,7 +66,7 @@ function App() {
 	        <NavLink style={style} to="/" exact>홈</NavLink>
           <NavLink style={style} to="/about">소개</NavLink>
           <NavLink style={style} to="/services">서비스</NavLink>
-          <NavLink style={style} to="/portfolio">포트폴리오</NavLink>
+          <NavLink style={style} to="/portfolio">마이페이지</NavLink>
           <NavLink style={style} to = "/contact">연락처</NavLink>
       </nav>
       <Routes>
@@ -74,7 +74,7 @@ function App() {
         <Route path="/" exact element={Home} />
         <Route path="/about" element={<B />} />
         <Route path="/services" element={<C />} />
-        <Route path="/portfolio" element={<D />} />
+        <Route path="/portfolio" element={<CalendarPage />} />
         <Route path="/contact" element={<E />} />
       </Routes>
     </Router>
