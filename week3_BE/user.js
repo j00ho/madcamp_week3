@@ -3,12 +3,14 @@ const session = require('express-session');
 const db = require('./db');
 
 const router = express.Router();
+const Filestore = require('session-file-store')(session);
 
 // 세션 설정
 router.use(session({
   secret: 'your-secret-key', // 세션 암호화를 위한 키, 실제 프로젝트에서는 보안에 신경쓰고 설정해야 합니다.
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  store: new Filestore()
 }));
 
 //특정 email을 받았을 때 그 email을 가진 user의 data를 돌려주는 query
@@ -23,11 +25,6 @@ router.get('/getusers', async (req, res) => {
       res.status(500).json({ error: '서버 오류' });
     }
   });
-
-// GET 요청에 대한 핸들러 추가
-// router.get('/signup', (req, res) => {
-//     res.status(404).json({ error: 'Not Found' });
-//   });
 
 //회원가입
 router.post('/signup', async (req, res) => {
@@ -67,8 +64,8 @@ router.post('/login', async (req, res) => {
     if (user.length > 0) {
       // 로그인 성공
       // 세션에 user_id 저장
-      req.session.user_id = user[0].user_id;
-      // console.log(req.session.user_id);
+      req.session.user = user[0];
+      // console.log(req.session.user);
       res.json({ message: '로그인 성공', user: user[0] });
     } else {
       // 로그인 실패
@@ -81,16 +78,32 @@ router.post('/login', async (req, res) => {
 });
 
 // 로그아웃
-// router.post('/logout', async (req, res) => {
-//   req.session.destroy((err) => {
-//     if (err) {
-//       console.error('로그아웃 중 에러:', err);
-//       res.status(500).json({ error: '서버 오류 '});
-//     } else{
-//       res.json({ message: '로그아웃 성공'});
-//     }
-//   })
-// });
+router.post('/logout', async (req, res) => {
+  try {
+    // 현재 로그인된 사용자인지 확인
+    if (req.session.user_id) {
+      // 세션 파괴
+      req.session.destroy((err) => {
+        if (err) {
+          console.error('로그아웃 중 에러:', err);
+          res.status(500).json({ error: '서버 오류' });
+        } else {
+          res.json({ message: '로그아웃 성공' });
+          // 로그아웃해서 session 삭제 완료되면 에러가 나지 않을 경우 main page로 redirect
+          // res.redirect('/');
+        }
+      });
+    } else {
+      // 로그인되지 않은 사용자가 로그아웃 시도
+      res.status(401).json({ error: '로그인 상태가 아닙니다.' });
+      // res.redirect('/');
+    }
+  } catch (error) {
+    console.error('로그아웃 중 에러:', error);
+    res.status(500).json({ error: '서버 오류' });
+  }
+});
+
 
 // 업데이트
 router.put('/updateuser', async (req, res) => {
