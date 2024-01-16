@@ -1,7 +1,9 @@
 const express = require('express');
 const db = require('./db');
+const cors = require('cors');
 
 const router = express.Router();
+router.use(cors());
 
 // 로그인한 사용자의 지출 정보 조회
 router.get('/getuserpayments', async (req, res) => {
