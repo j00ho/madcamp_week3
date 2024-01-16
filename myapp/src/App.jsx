@@ -1,75 +1,70 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import { BrowserRouter, Route, NavLink, Routes } from 'react-router-dom';
+import { AppBar, Toolbar, Typography, Button as MUIButton, Tabs, Tab, Box } from '@mui/material';
+import { BrowserRouter, Route, NavLink, Routes, Link } from 'react-router-dom';
 import React, { Component } from 'react'
 
+import { Button, Layout, Menu } from 'antd';
+const { Header, Content } = Layout;
+
 import B from './B.jsx';
-import C from './C.jsx';
 import D from './D.jsx';
 import E from './E.jsx';
 
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
+import VideoListPage from './C.jsx';
+
+import LogoImage from './images/logo.png';
+import BannerImage from './images/banner_long.png';
 
 
 
-import './App.css'
+import './App.css';
 
+const MainPage = () => (
+  <div>
+    {/* Place your main page content here */}
+    <img src={BannerImage} alt="Banner" style={{ width: '100%' }} /> {/* Replace banner.jpg with your banner image */}
+  </div>
+);
 
-function EventPractice() {
-  const [message, setMessage] = useState('Hello World!');
-
-  return (
-    <div>
-      <h1>Event Practice</h1>
-      <input
-        type='text'
-        name='message'
-        placeholder='Enter a message...'
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-      />
-      <button onClick={() => {
-        alert(message);
-        setMessage('');
-      }}>Click Me</button>
-    </div>
-  );
-}
-
-
-const Home = () => <div>홈 페이지</div>;
-const About = () => <div>소개 페이지</div>;
-const Services = () => <div>서비스 페이지</div>;
-const Portfolio = () => <div>포트폴리오 페이지</div>;
-const Contact = () => <div>연락처 페이지</div>;
-
-function App() {
-  const style = {
-    backgroundColor: 'black',
-    color: 'aqua',
-    fontSize: '48px',
-    fontWeight: 'bold',
-    padding: 16
-  }
+const App = () => {
   return (
     <BrowserRouter>
-      <Routes>
-
-        <Route path="/" exact element={<Home />} />
-        <Route path="/about" element={<B />} />
-        <Route path="/services" element={<C />} />
-        <Route path="/graph" element={<D />} />
-        <Route path="/youtube" element={<E />} />
-      
-        <Route path="/login" element = {<LoginPage />}  />
-        <Route path="/register" element = {<RegisterPage />}  />
-        
-
-      </Routes>
+      <Layout>
+        <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Link to="/">
+            <img src={LogoImage} alt="Logo" style={{ height: '50px' }} />
+          </Link>
+          <div>
+            <Link to="/login"><Button type="primary">Login</Button></Link>
+            <Link to="/register"><Button type="primary">Register</Button></Link>
+          </div>
+        </Header>
+        <Content style={{ padding: '50px' }}>
+          <Menu mode="horizontal">
+            <Menu.Item key="mypage"><Link to="/mypage">마이페이지</Link></Menu.Item>
+            <Menu.Item key="analysis"><Link to="/analysis">소비 분석</Link></Menu.Item>
+            <Menu.Item key="education"><Link to="/education">교육 및 강연</Link></Menu.Item>
+          </Menu>
+          <Routes>
+            <Route path="/" element={<MainPage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register" element={<RegisterPage />} />
+            <Route path="/about" element={<B />} />
+            <Route path="/education" element={<VideoListPage />} />
+            <Route path="/graph" element={<D />} />
+            <Route path="/youtube" element={<E />} />
+            {/* Add other routes here */}
+          </Routes>
+        </Content>
+      </Layout>
     </BrowserRouter>
   );
-}
+};
+
+
 
 export default App;
