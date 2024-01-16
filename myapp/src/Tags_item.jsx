@@ -4,11 +4,11 @@ import Grid from '@mui/material/Grid';
 import { Select } from 'antd';
 
 const tags_items = [
-    "All",
     "tag1",
     "tag2",
     "tag3",
-    "tag4"
+    "tag4",
+    "tag5"
 ];
 
 export default tags_items;
