@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import { AppBar, Toolbar, Typography, Button as MUIButton, Tabs, Tab, Box } from '@mui/material';
-import { BrowserRouter, Route, NavLink, Routes, Link } from 'react-router-dom';
+import { AppBar, Toolbar, Typography, Button as MUIButton, Tabs, Tab, Box, Container } from '@mui/material';
+import { BrowserRouter, Route, NavLink, Routes, Link} from 'react-router-dom';
 import React, { Component } from 'react'
 
 import { Button, Layout, Menu } from 'antd';
@@ -22,6 +22,7 @@ import BannerImage from './images/banner_long.png';
 
 
 import './App.css';
+import MyCalendarPage from './MyCalendarPage';
 
 const MainPage = () => (
   <div>
@@ -33,34 +34,36 @@ const MainPage = () => (
 const App = () => {
   return (
     <BrowserRouter>
-      <Layout>
-        <Header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Link to="/">
-            <img src={LogoImage} alt="Logo" style={{ height: '50px' }} />
-          </Link>
-          <div>
+      <Container maxWidth="lg" style={{ width: '1560px' }}>
+        <AppBar position="static" style={{ width: '100%' }}>
+          <Toolbar style={{ width: '100%' }}>
+            <Link to="/">
+              <img src={LogoImage} alt="로고" style={{ height: 50 }} />
+            </Link>
+            <Typography variant="h6" style={{ flexGrow: 1 }} />
             <Link to="/login"><Button type="primary">Login</Button></Link>
             <Link to="/register"><Button type="primary">Register</Button></Link>
-          </div>
-        </Header>
-        <Content style={{ padding: '50px' }}>
-          <Menu mode="horizontal">
-            <Menu.Item key="mypage"><Link to="/mypage">마이페이지</Link></Menu.Item>
-            <Menu.Item key="analysis"><Link to="/analysis">소비 분석</Link></Menu.Item>
-            <Menu.Item key="education"><Link to="/education">교육 및 강연</Link></Menu.Item>
-          </Menu>
-          <Routes>
-            <Route path="/" element={<MainPage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/about" element={<B />} />
-            <Route path="/education" element={<VideoListPage />} />
-            <Route path="/graph" element={<D />} />
-            <Route path="/youtube" element={<E />} />
-            {/* Add other routes here */}
-          </Routes>
-        </Content>
-      </Layout>
+          </Toolbar>
+        </AppBar>
+
+        <Tabs centered style={{ width: '100%' }}>
+          <Tab label="마이페이지" component={Link} to="/mypage" />
+          <Tab label="소비분석" component={Link} to="/analysis" />
+          <Tab label="교육 및 강연" component={Link} to="/education" />
+        </Tabs>
+
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/about" element={<B />} />
+          <Route path="/education" element={<VideoListPage />} />
+          <Route path="/graph" element={<D />} />
+          <Route path="/youtube" element={<E />} />
+          <Route path="/testCal" element={<MyCalendarPage />} />
+          {/* 로그인 및 회원가입 경로 추가 필요 */}
+        </Routes>
+      </Container>
     </BrowserRouter>
   );
 };

@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import { Select } from 'antd';
 
 const tags_src = [
+    "All",
     "tag1",
     "tag2",
     "tag3",

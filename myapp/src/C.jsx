@@ -18,56 +18,56 @@ const videos = [
 		title: '영상 제목 1',
 		description: '영상 설명 1',
 		embedId: 'KyAL64yDw_U',
-		tags: [tags_src[0], tags_src[1], tags_src[2], tags_src[3]]
+		tags: [tags_src[0], tags_src[1], tags_src[2], tags_src[3], tags_src[4]]
 	},
 	{
 		id: 'video2',
 		title: '영상 제목 2',
 		description: '영상 설명 2',
 		embedId: 'EYB7NOSY-hI',
-		tags: [tags_src[0]]
+		tags: [tags_src[0], tags_src[1]]
 	},
 	{
 		id: 'video3',
 		title: '영상 제목 3',
 		description: '영상 설명 3',
 		embedId: '3LILV0dK9ys',
-		tags: [tags_src[1]]
+		tags: [tags_src[0], tags_src[2]]
 	},
 	{
 		id: 'video4',
 		title: '영상 제목 4',
 		description: '영상 설명 4',
 		embedId: 'XSbqwzDIPg8',
-		tags: [tags_src[2]]
+		tags: [tags_src[0], tags_src[3]]
 	},
 	{
 		id: 'video5',
 		title: '영상 제목 5',
 		description: '영상 설명 5',
 		embedId: '3ajHeLHbRlY',
-		tags: [tags_src[3]]
+		tags: [tags_src[0], tags_src[4]]
 	},
 	{
 		id: 'video6',
 		title: '영상 제목 6',
 		description: '영상 설명 6',
 		embedId: 'iEimdVXyLug',
-		tags: [tags_src[1], tags_src[2]]
+		tags: [tags_src[0], tags_src[2], tags_src[3]]
 	},
 	{
 		id: 'video7',
 		title: '영상 제목 7',
 		description: '영상 설명 7',
 		embedId: 'MMGtUOdox2A',
-		tags: [tags_src[0], tags_src[1], tags_src[2]]
+		tags: [tags_src[0], tags_src[1], tags_src[2], tags_src[3]]
 	},
 	{
 		id: 'video8',
 		title: '영상 제목 8',
 		description: '영상 설명 8',
 		embedId: 'C-DXAaSiGxA',
-		tags: [tags_src[0], tags_src[3]]
+		tags: [tags_src[0], tags_src[1], tags_src[4]]
 	},
 	
 ];
@@ -129,7 +129,7 @@ function VideoListPage() {
 	const uniqueTags = [...new Set(videos.flatMap(video => video.tags))];
 
 	return (
-		<div>
+		<div style={{ width: '100%' }}>
 		<TagSelector tags={uniqueTags} onSelectTag={handleSelectTag} />
 		{filteredVideos.map(video => (
 			<VideoItem key={video.id} video={video} />
