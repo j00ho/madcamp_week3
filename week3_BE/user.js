@@ -1,9 +1,17 @@
 const express = require('express');
 const session = require('express-session');
 const db = require('./db');
+const cors = require('cors');
 
 const router = express.Router();
 const Filestore = require('session-file-store')(session);
+
+router.use(cors({
+  origin: 'http://localhost:5173', // 클라이언트의 주소
+  credentials: true,
+}));
+
+// router.use(cors());
 
 // 세션 설정
 router.use(session({
@@ -56,6 +64,7 @@ router.post('/signup', async (req, res) => {
 
 //로그인
 router.post('/login', async (req, res) => {
+  console.log('클라이언트에서 로그인 요청이 도착했습니다.');
   const { email, password } = req.body;
   try {
     // 입력된 이메일과 비밀번호가 일치하는 사용자 확인
@@ -66,7 +75,7 @@ router.post('/login', async (req, res) => {
       // 세션에 user_id 저장
       req.session.user = user[0];
       // console.log(req.session.user);
-      res.json({ message: '로그인 성공', user: user[0] });
+      res.json({ message: '로그인 성공', user: user[0].username });
     } else {
       // 로그인 실패
       res.status(401).json({ error: '이메일 또는 비밀번호가 일치하지 않습니다.' });
