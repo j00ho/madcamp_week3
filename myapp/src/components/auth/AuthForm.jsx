@@ -46,12 +46,27 @@ const textMap = {
 
 const AuthForm = ({ type, formData, onChange, onSubmit }) => {
     const text = textMap[type];
+    const isRegister = type === 'register';
+
+    // 추가: 버튼 활성화 여부 상태값
+    const isButtonDisabled =
+        isRegister &&
+        (formData.password !== formData.passwordConfirm ||
+            !formData.email ||
+            !formData.password ||
+            !formData.passwordConfirm ||
+            !formData.username || // 추가 필드: 이름
+            !formData.gender || // 추가 필드: 성별
+            !formData.campus_info || // 추가 필드: 대학 정보
+            !formData.yes_income || // 추가 필드: 소득 여부
+            !formData.age); // 추가 필드: 나이
+
     return (
         <AuthFormBlock>
           <h3>{text}</h3>
           <form onSubmit={onSubmit}>
             <StyledInput
-              autoComplete="username"
+              autoComplete="useremail"
               name="email"
               placeholder="이메일"
               value={formData.email}
@@ -65,23 +80,67 @@ const AuthForm = ({ type, formData, onChange, onSubmit }) => {
               value={formData.password}
               onChange={onChange}
             />
-                {type == 'register' && (
+                {isRegister && (
+                <>
+                    {/* 비밀번호 확인란 입력 시 다르다는 것 알려주는 기능 추가해야 함 */}
                     <StyledInput 
                         autoComplete="new-password" 
                         name="passwordConfirm" 
                         placeholder="비밀번호 확인" 
                         type="password"
+                        value={formData.passwordConfirm}
+                        onChange={onChange}
                     />
+                    {formData.password !== formData.passwordConfirm && (
+                            <div style={{ color: 'red', marginTop: '0.5rem' }}>비밀번호가 일치하지 않습니다.</div>
+                        )}
+                    {/* 추가 필드: 이름 */}
+                    <StyledInput
+                        name="username"
+                        placeholder="이름"
+                        value={formData.username}
+                        onChange={onChange}
+                    />
+
+                    {/* 추가 필드: 성별 */}
+                    <StyledInput
+                        name="gender"
+                        placeholder="성별(남자:0, 여자:1)"
+                        type="number"
+                        value={formData.gender}
+                        onChange={onChange}
+                    />
+
+                    {/* 추가 필드: 대학 정보 */}
+                    <StyledInput
+                        name="campus_info"
+                        placeholder="대학 정보"
+                        value={formData.campus_info}
+                        onChange={onChange}
+                    />
+
+                    {/* 추가 필드: 소득 여부 */}
+                    <StyledInput
+                        name="yes_income"
+                        placeholder="소득 여부(없음:0, 있음:1)"
+                        type="number"
+                        value={formData.yes_income}
+                        onChange={onChange}
+                    />
+
+                    {/* 추가 필드: 나이 */}
+                    <StyledInput
+                        name="age"
+                        placeholder="나이"
+                        type="number"
+                        value={formData.age}
+                        onChange={onChange}
+                    />
+                    </>
                 )}
-                <Button block={true} style={{ marginTop: '20px', backgroundColor: '#add8e6' }} onClick = {onSubmit}>{text}</Button>
+                <Button block={true} style={{ marginTop: '20px', backgroundColor: '#add8e6' }} onClick = {onSubmit} disabled = {isButtonDisabled}>{text}</Button>
             </form>
-            <Footer>
-                {type == 'login' ? (
-                    <Link to = "/register">회원가입</Link>
-                ) : (
-                    <Link to = "/login">로그인</Link>
-                )}
-            </Footer>
+            <Footer>{isRegister ? <Link to="/login">로그인</Link> : <Link to="/register">회원가입</Link>}</Footer>
         </AuthFormBlock>
     );
 };

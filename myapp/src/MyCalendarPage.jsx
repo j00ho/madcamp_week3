@@ -112,6 +112,7 @@ function MyCalendarPage() {
         <InputLabel>유형</InputLabel>
         <Select
           name="type"
+          type="number"
           value={itemForm.type}
           onChange={handleFormChange}
           label="유형"
@@ -158,6 +159,36 @@ function MyCalendarPage() {
       </Button>
     </div>
   );
+
+    // 클라이언트 측 코드
+  const handleAddPayment = async () => {
+    try {
+      const response = await Axios.post(
+        "http://localhost:3000/addpayment",
+        {
+          pay_date: selectedDate.toISOString().split('T')[0],
+          pay_type: itemForm.type,
+          amount: itemForm.amount,
+          memo: itemForm.memo,
+          category_id: Array.from(itemForm.tags),  // Set을 Array로 변환
+        },
+        { withCredentials: true }  // CORS 이슈를 해결하기 위해 credentials 옵션을 설정
+      );
+
+      console.log(response.data.message);
+      // 예를 들어, 추가 성공 후의 처리를 할 수 있습니다.
+    } catch (error) {
+      console.error("지출 내역 추가 실패:", error.response.data.error);
+      // 예를 들어, 에러 메시지를 화면에 표시할 수 있습니다.
+    }
+  };
+
+  // ...
+
+  <Button onClick={handleAddPayment} variant="contained" color="primary">
+    {editingId ? '수정' : '추가'}
+  </Button>
+
 
   return (
     <div>

@@ -12,6 +12,7 @@ import B from './B.jsx';
 import D from './D.jsx';
 import E from './E.jsx';
 
+// import MyPage from './Mypage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import VideoListPage from './C.jsx';
@@ -62,6 +63,7 @@ const App = () => {
           <Route path="/youtube" element={<E />} />
           <Route path="/testCal" element={<MyCalendarPage />} />
           {/* 로그인 및 회원가입 경로 추가 필요 */}
+          {/* <Route path="/mypage" element={<MyPage />} /> */}
         </Routes>
       </Container>
     </BrowserRouter>
