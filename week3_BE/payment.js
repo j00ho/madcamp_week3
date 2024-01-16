@@ -39,6 +39,7 @@ router.get('/getuserpayments', async (req, res) => {
 
 // 로그인한 사용자의 지출 내역 추가
 router.post('/addpayment', async (req, res) => {  
+  console.log('post 요청 받았음');
   const {pay_date, pay_type, amount, memo, category_id} = req.body;
   
   try {
