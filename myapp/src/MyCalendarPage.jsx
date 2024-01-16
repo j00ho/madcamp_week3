@@ -3,6 +3,7 @@ import { List, ListItem, ListItemText, Button, TextField } from '@mui/material';
 import { LocalizationProvider, StaticDatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
+import tags_items from './Tags_item';
 //import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 
 function MyCalendarPage() {
