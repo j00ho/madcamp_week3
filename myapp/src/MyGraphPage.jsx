@@ -5,6 +5,7 @@ import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import OpenAI from 'openai';
+import Box from '@mui/material/Box';
 
 const openai = new OpenAI({apiKey: import.meta.env.VITE_OPENAI_API_KEY, dangerouslyAllowBrowser: true});
 
@@ -109,10 +110,12 @@ const MyGraphPage = () => {
         type="bar"
       />
 
-      <Button variant="contained" onClick={handleButtonClick}>
-        ChatGPT에 물어보기
+      <Button variant="contained" onClick={handleButtonClick} >
+        ChatGPT에게 조언 구하기
       </Button>
-      <div>{gptResponse}</div>
+      <Box p={2} border={1} mt={2}>
+        {gptResponse}
+      </Box>
     </div>
   );
 };
