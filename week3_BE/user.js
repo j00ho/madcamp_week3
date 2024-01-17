@@ -13,6 +13,9 @@ router.use(cors({
 
 // router.use(cors());
 
+const jwt = require('jsonwebtoken');
+
+
 // 세션 설정
 router.use(session({
   secret: 'your-secret-key', // 세션 암호화를 위한 키, 실제 프로젝트에서는 보안에 신경쓰고 설정해야 합니다.
@@ -72,10 +75,14 @@ router.post('/login', async (req, res) => {
 
     if (user.length > 0) {
       // 로그인 성공
+      const token = jwt.sign({ useremail: user[0].email }, 'your-secret-key', { expiresIn: '1h' });
       // 세션에 user_id 저장
       req.session.user = user[0];
       // console.log(req.session.user);
-      res.json({ message: '로그인 성공', user: user[0].username });
+
+      res.json({ message: '로그인 성공', user: user[0].username, authToken: token, userId: user[0].user_id });
+      console.log(token);
+
     } else {
       // 로그인 실패
       res.status(401).json({ error: '이메일 또는 비밀번호가 일치하지 않습니다.' });

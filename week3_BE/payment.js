@@ -3,10 +3,16 @@ const db = require('./db');
 const cors = require('cors');
 
 const router = express.Router();
-router.use(cors());
+
+router.use(cors({
+  origin: 'http://localhost:5173', // 클라이언트의 주소
+  credentials: true,
+}));
+//router.use(cors());
 
 // 로그인한 사용자의 지출 정보 조회
 router.get('/getuserpayments', async (req, res) => {
+  console.log('get 요청 받았음');
   try {
     // 세션에 저장된 사용자 정보 확인
     const loggedinuser = req.session.user;
@@ -19,7 +25,19 @@ router.get('/getuserpayments', async (req, res) => {
     }
 
     // 사용자의 지출 내역을 조회
-    const userPayments = await db.execute('SELECT * FROM payment_table WHERE user_id = ?', [loggedinuser.user_id]);
+    // const userPayments = await db.execute('SELECT * FROM payment_table WHERE user_id = ?', [loggedinuser.user_id]);
+
+    let query = 'SELECT * FROM payment_table WHERE user_id = ?';
+    const queryParams = [loggedinuser.user_id];
+
+    // date 파라미터가 전송된 경우에만 WHERE 조건에 추가
+    if (req.query.pay_date) {
+      query += ' AND pay_date = ?';
+      queryParams.push(req.query.pay_date);
+    }
+
+    // 사용자의 지출 내역을 조회
+    const userPayments = await db.execute(query, queryParams);
 
     if (userPayments[0].length === 0) {
       // 지출 내역이 없는 경우
@@ -39,6 +57,7 @@ router.get('/getuserpayments', async (req, res) => {
 
 // 로그인한 사용자의 지출 내역 추가
 router.post('/addpayment', async (req, res) => {  
+  console.log('post 요청 받았음');
   const {pay_date, pay_type, amount, memo, category_id} = req.body;
   
   try {
