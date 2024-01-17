@@ -5,10 +5,11 @@ import { Select } from 'antd';
 
 const tags_src = [
     "All",
-    "tag1",
-    "tag2",
-    "tag3",
-    "tag4"
+    "일반적인 내용",
+    "교통비",
+    "식비",
+    "연애",
+    "학비"
 ];
 
 export default tags_src;
