@@ -53,7 +53,7 @@ const MyGraphPage = () => {
 
   const handleButtonClick = async () => {
     
-    const randomText = 'I love ChatGPT'; // 랜덤 텍스트 생성 로직 추가
+    const randomText = '나는 10월, 11월, 12월에 연애에 돈을 각각 10만원, 20만원, 100만원 썼어. 나는 식비로 매달 30만원 정도 썼어. 나는 교통비로 10월, 11월, 12월에 돈을 각각 5만원, 1만원, 10만원 썼어. 나는 알바로 매달 50만원씩 모으고 있어. 돈 관리에 대해 조언을 해줘'; // 랜덤 텍스트 생성 로직 추가
     const completion = await openai.chat.completions.create({
         messages: [{ role: "system", content: randomText }],
         model: "gpt-3.5-turbo",
