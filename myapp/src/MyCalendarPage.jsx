@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   List,
   ListItem,
@@ -28,8 +28,25 @@ function MyCalendarPage() {
   const [editingId, setEditingId] = useState(null);
 
   // 날짜 변경 핸들러
-  const handleDateChange = (newDate) => {
+  const handleDateChange = async (newDate) => {
     setSelectedDate(newDate);
+    console.log('날짜 변경:', newDate.toISOString().split('T')[0]);
+
+    try {
+      const response = await Axios.get(
+        `http://localhost:3000/payment/getuserpayments?user_id=${sessionStorage.getItem("userId")}&pay_date=${newDate.toISOString().split('T')[0]}`,
+        { withCredentials: true }
+      );
+  
+      if (response && response.data) {
+        setItems(response.data);
+        console.log('items:', items);
+      } else {
+        console.error("서버 응답이 비어있거나 'data'를 포함하지 않습니다.");
+      }
+    } catch (error) {
+      console.error("지출 내역을 불러오는 중 에러 발생:", error);
+    }
   };
 
   // 아이템 추가 핸들러
@@ -105,7 +122,7 @@ function MyCalendarPage() {
         />
       </ListItem>
     ));
-
+    
   // handleButtonClick 함수 정의
   const handleButtonClick = () => {
     console.log("버튼 클릭");
