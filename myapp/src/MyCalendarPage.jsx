@@ -13,7 +13,8 @@ import {
 import { LocalizationProvider, StaticDatePicker } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
-import tags_items from './Tags_item';
+import { tags_items, tagMappings } from './Tags_item';
+import Axios from "axios";
 
 function MyCalendarPage() {
   const [selectedDate, setSelectedDate] = useState(dayjs());
@@ -105,6 +106,13 @@ function MyCalendarPage() {
       </ListItem>
     ));
 
+  // handleButtonClick 함수 정의
+  const handleButtonClick = () => {
+    console.log("버튼 클릭");
+    handleSubmit();
+    handleAddPayment();
+  };
+  
   // 폼 컴포넌트
   const itemFormComponent = (
     <div>
@@ -112,6 +120,7 @@ function MyCalendarPage() {
         <InputLabel>유형</InputLabel>
         <Select
           name="type"
+          type="number"
           value={itemForm.type}
           onChange={handleFormChange}
           label="유형"
@@ -153,11 +162,57 @@ function MyCalendarPage() {
         fullWidth
         margin="normal"
       />
-      <Button onClick={handleSubmit} variant="contained" color="primary">
+      <Button onClick={handleButtonClick} variant="contained" color="primary">
         {editingId ? '수정' : '추가'}
       </Button>
     </div>
   );
+
+  // 클라이언트 측 코드
+  const handleAddPayment = async () => {
+    // console.log("handleAddPayment 함수 실행 중");
+    try {
+      const payTypeValue = itemForm.type === '지출' ? "1" : "0";
+      const category_id = Array.from(itemForm.tags).map(tag => tagMappings[tag]).join('');
+      
+      console.log(selectedDate.toISOString().split('T')[0]);
+      console.log(payTypeValue);
+      console.log(itemForm.amount);
+      console.log(itemForm.memo);
+      console.log(category_id);
+      
+      const response = await Axios.post(
+        "http://localhost:3000/payment/addpayment",
+        {
+          pay_date: selectedDate.toISOString().split('T')[0],
+          pay_type: payTypeValue,
+          amount: itemForm.amount,
+          memo: itemForm.memo,
+          category_id: category_id,
+        },
+        { withCredentials: true }  // CORS 이슈를 해결하기 위해 credentials 옵션을 설정
+      );
+      
+      console.log(response)
+
+      if (response && response.message) {
+        console.log(response.message);
+        // 예를 들어, 추가 성공 후의 처리를 할 수 있습니다.
+      } else {
+        console.error("서버 응답에 'data' 속성 또는 'message' 속성이 없습니다.");
+      }
+    } catch (error) {
+      console.error("지출 내역 추가 실패:", error);
+      // 예를 들어, 에러 메시지를 화면에 표시할 수 있습니다.
+    }
+  };
+
+  // ...
+
+  //   <Button onClick={() => { console.log("버튼 클릭"); handleAddPayment(); }} variant="contained" color="primary">
+  //   {editingId ? '수정' : '추가'}
+  // </Button>
+
 
   return (
     <div>

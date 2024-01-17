@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import Axios from "axios";
 import AuthTemplate from "../components/auth/AuthTemplate";
 import AuthForm from "../components/auth/AuthForm";
+import { useNavigate } from 'react-router-dom';
 
 const LoginPage = () => {
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -29,9 +32,13 @@ const LoginPage = () => {
         { withCredentials: true } // CORS 이슈를 해결하기 위해 credentials 옵션을 설정
       );
 
-      // 로그인 성공 시 처리
+      // 서버로부터 받은 사용자 정보를 sessionStorage에 저장
+      sessionStorage.setItem("user", JSON.stringify(response.data.user));
+
       console.log(response.data.message);
-      // 예를 들어, 로그인 성공 후 리다이렉트 등을 수행할 수 있습니다.
+      // 로그인 성공 후 메인페이지로 이동 (*로그인된 후의 페이지!!)
+      navigate('/testCal');
+
     } catch (error) {
       // 로그인 실패 시 처리
       console.error("로그인 실패:", error.response.data.error);
