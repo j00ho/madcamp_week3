@@ -25,6 +25,7 @@ import BannerImage from './images/banner_long.png';
 
 import './App.css';
 import MyCalendarPage from './MyCalendarPage';
+import MyGraphPage from './MyGraphPage';
 
 const MainPage = () => (
   <div>
@@ -81,6 +82,8 @@ const App = () => {
             <Route path="/testCal" element={<Navigate to="/login" />} />
           )}
           {/* <Route path="/testCal" element={<MyCalendarPage />} /> */}
+          <Route path="/testCal" element={<MyCalendarPage />} />
+          <Route path="/analysis" element={<MyGraphPage />} />
           {/* 로그인 및 회원가입 경로 추가 필요 */}
           {/* <Route path="/mypage" element={<MyPage />} /> */}
         </Routes>
