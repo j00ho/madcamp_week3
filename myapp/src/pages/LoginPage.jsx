@@ -33,15 +33,20 @@ const LoginPage = () => {
       );
 
       // 서버로부터 받은 사용자 정보를 sessionStorage에 저장
-      sessionStorage.setItem("user", JSON.stringify(response.data.user));
-
+      sessionStorage.setItem("authToken", response.data.authToken);
+      sessionStorage.setItem("userId", response.data.userId);
       console.log(response.data.message);
+
+      // 확인: sessionStorage에 토큰이 제대로 저장되었는지 로그로 확인
+      console.log("저장된 토큰:", sessionStorage.getItem("authToken"));
+      console.log("저장된 사용자 ID:", sessionStorage.getItem("userId"));
+      
       // 로그인 성공 후 메인페이지로 이동 (*로그인된 후의 페이지!!)
-      navigate('/testCal');
+      navigate('/');
 
     } catch (error) {
       // 로그인 실패 시 처리
-      console.error("로그인 실패:", error.response.data.error);
+      console.error("로그인 실패:", error);
       // 예를 들어, 에러 메시지를 화면에 표시할 수 있습니다.
     }
   };

@@ -13,7 +13,7 @@ import B from './B.jsx';
 import D from './D.jsx';
 import E from './E.jsx';
 
-// import MyPage from './Mypage';
+// import MyClendarPage from './MyCalendarPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import VideoListPage from './C.jsx';
@@ -44,6 +44,7 @@ const App = () => {
 
   const updateLoginStatus = () => {
     const authToken = sessionStorage.getItem('authToken');
+    console.log('authToken:', authToken);
     setIsLoggedIn(!!authToken);
   };
 
@@ -62,7 +63,7 @@ const App = () => {
         </AppBar>
 
         <Tabs centered style={{ width: '100%' }}>
-          <Tab label="마이페이지" component={Link} to="/mypage" />
+          <Tab label="마이페이지" component={Link} to="/testCal" />
           <Tab label="소비분석" component={Link} to="/analysis" />
           <Tab label="교육 및 강연" component={Link} to="/education" />
         </Tabs>
