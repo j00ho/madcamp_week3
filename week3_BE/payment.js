@@ -3,6 +3,7 @@ const db = require('./db');
 const cors = require('cors');
 
 const router = express.Router();
+
 router.use(cors({
   origin: 'http://localhost:5173', // 클라이언트의 주소
   credentials: true,
