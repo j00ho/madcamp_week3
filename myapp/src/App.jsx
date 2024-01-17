@@ -23,6 +23,7 @@ import BannerImage from './images/banner_long.png';
 
 import './App.css';
 import MyCalendarPage from './MyCalendarPage';
+import MyGraphPage from './MyGraphPage';
 
 const MainPage = () => (
   <div>
@@ -61,6 +62,7 @@ const App = () => {
           <Route path="/graph" element={<D />} />
           <Route path="/youtube" element={<E />} />
           <Route path="/testCal" element={<MyCalendarPage />} />
+          <Route path="/analysis" element={<MyGraphPage />} />
           {/* 로그인 및 회원가입 경로 추가 필요 */}
         </Routes>
       </Container>
