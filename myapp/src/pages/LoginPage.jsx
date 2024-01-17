@@ -32,9 +32,12 @@ const LoginPage = () => {
         { withCredentials: true } // CORS 이슈를 해결하기 위해 credentials 옵션을 설정
       );
 
+      // 서버로부터 받은 사용자 정보를 sessionStorage에 저장
+      sessionStorage.setItem("user", JSON.stringify(response.data.user));
+
       console.log(response.data.message);
       // 로그인 성공 후 메인페이지로 이동 (*로그인된 후의 페이지!!)
-      navigate('/');
+      navigate('/testCal');
 
     } catch (error) {
       // 로그인 실패 시 처리

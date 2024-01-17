@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import { AppBar, Toolbar, Typography, Button as MUIButton, Tabs, Tab, Box, Container } from '@mui/material';
 import { BrowserRouter, Route, NavLink, Routes, Link} from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import React, { Component } from 'react'
 
 import { Button, Layout, Menu } from 'antd';
@@ -33,6 +34,18 @@ const MainPage = () => (
 );
 
 const App = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  useEffect(() => {
+    console.log('로그인됨');
+    updateLoginStatus();
+  }, []);
+
+  const updateLoginStatus = () => {
+    const authToken = sessionStorage.getItem('authToken');
+    setIsLoggedIn(!!authToken);
+  };
+
   return (
     <BrowserRouter>
       <Container maxWidth="lg" style={{ width: '1560px' }}>
@@ -61,7 +74,13 @@ const App = () => {
           <Route path="/education" element={<VideoListPage />} />
           <Route path="/graph" element={<D />} />
           <Route path="/youtube" element={<E />} />
-          <Route path="/testCal" element={<MyCalendarPage />} />
+          {isLoggedIn ? (
+            <Route path="/testCal" element={<MyCalendarPage />} />
+          ) : (
+            // 로그인되지 않은 경우 로그인 페이지로 리다이렉트
+            <Route path="/testCal" element={<Navigate to="/login" />} />
+          )}
+          {/* <Route path="/testCal" element={<MyCalendarPage />} /> */}
           {/* 로그인 및 회원가입 경로 추가 필요 */}
           {/* <Route path="/mypage" element={<MyPage />} /> */}
         </Routes>
