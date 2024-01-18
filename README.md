@@ -2,7 +2,7 @@
 
 # 🐽 대학생을 위한 지출 관리 플랫폼, 돈모아
 
-<img src="https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/d46d48e8-cea4-4b6c-b549-dfeae497aa0d/Untitled.png">
+<img src="https://github.com/j00ho/madcamp_week3/assets/62568191/3da3166e-a92a-4d5c-8c54-6678382e3a43">
 
 ## 탄생 배경
 
