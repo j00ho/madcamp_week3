@@ -47,7 +47,7 @@
 
 ### 메인페이지
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/d46d48e8-cea4-4b6c-b549-dfeae497aa0d/Untitled.png)
+<img src= "https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/d46d48e8-cea4-4b6c-b549-dfeae497aa0d">
 
 <aside>
 📌 **배너**
@@ -59,7 +59,7 @@
 
 ### 로그인/회원가입 창
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/bf37f1b2-fc8b-4dec-b658-c07925f319dc/Untitled.png)
+<img src= "https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/bf37f1b2-fc8b-4dec-b658-c07925f319dc">
 
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/f6cb388f-3934-47d6-9928-26d2e10eb0fc/30d8c0d4-5e52-4d61-bc7a-8ebaee7ed9e4/Untitled.png)
 
