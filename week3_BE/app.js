@@ -22,11 +22,11 @@ app.use(session({
   store: new Filestore()
 }));
 
-//app.use(cors());
-app.use(cors({
-  origin: 'http://localhost:5173', // 클라이언트의 주소
-  credentials: true,
-}));
+app.use(cors());
+// app.use(cors({
+//   origin: 'http://localhost:5173', // 클라이언트의 주소
+//   credentials: true,
+// }));
 app.use('/payment', paymentRoutes);
 app.use('/user', userRoutes);
 
